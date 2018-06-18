@@ -1,0 +1,26 @@
+
+<ion-content padding class="fundo">
+
+     
+                <ion-searchbar (ionInput)="getItems($event)" placeholder="Pesquisa..." class="pesquisa" ></ion-searchbar>
+              
+                <ion-segment [(ngModel)]="Info" color="dark" >
+                
+                  <ion-segment-button value="Linhas" >
+                      <ion-icon name="bus"></ion-icon>
+                      </ion-segment-button>
+                </ion-segment>
+       
+              
+              <div [ngSwitch]="Info" >
+                  
+                    <ion-list *ngSwitchCase="'Linhas'">
+                      <button ion-item *ngFor="let nl of numLinha" (click)="openBus(nl.numLinha)">
+                        {{nl.numLinha}}/{{nl.descricaoPonto}}
+                     </button>
+                    </ion-list>
+              
+                </div>
+          
+    
+</ion-content>
