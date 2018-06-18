@@ -16,4 +16,10 @@ export class ServiceProvider {
       return this.http.get(this.api+'apiHorario.php').map(res=> res.json());
     }
 
+    getLinha(){
+      return this.http.get(this.api+'apiRecuperaPonto.php').map(res=> res.json());
+    }
+
+
+
 }

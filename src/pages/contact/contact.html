@@ -15,9 +15,9 @@
               <div [ngSwitch]="Info" >
                   
                     <ion-list *ngSwitchCase="'Linhas'">
-                      <button ion-item *ngFor="let nl of numLinha" (click)="openBus(nl.numLinha)">
+                      <ion-item *ngFor="let nl of numLinha">
                         {{nl.numLinha}}/{{nl.descricaoPonto}}
-                     </button>
+                      </ion-item>
                     </ion-list>
               
                 </div>

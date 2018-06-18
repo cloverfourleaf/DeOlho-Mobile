@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AlertController } from 'ionic-angular';
+import { ServiceProvider } from '../../providers/service/service';
 
 declare var google;
 
@@ -11,6 +13,7 @@ declare var google;
 })
 export class AboutPage {
 
+  linha: any [];
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   map: any;
@@ -22,11 +25,12 @@ export class AboutPage {
 
   
   ionViewDidLoad() {
-    this.initializeMap();
+    
   }
 
-  constructor(public navCtrl: NavController  ,private geolocation: Geolocation) {
-
+  constructor(public navCtrl: NavController ,private geolocation: Geolocation,public alertCtrl: AlertController,public service: ServiceProvider) {
+    this.initializeMap();
+    this.getLinha();
   }
   pegarLocalizacao(){
     this.geolocation.getCurrentPosition()
@@ -58,6 +62,15 @@ export class AboutPage {
     });
   }
 
+  getLinha(){
+    this.service.getLinha().subscribe(
+      data=> this.linha=data,
+      err=>console.log(err)
+    )
+
+    
+  }
+
   calculateRoute() {
     if (this.destinationPosition && this.originPosition) {
       const request = {
@@ -82,4 +95,59 @@ export class AboutPage {
     });
   }
 
+  showRadio(num,codigo){
+
+
+   
+      let alert = this.alertCtrl.create();
+    alert.setTitle('Sentido');
+      alert.addInput({
+        type: 'radio',
+        label: this.linha[num].descricaoPonto,
+        name:'Ida',
+        value: this.linha[num].codPonto,
+        checked: true
+      });
+      alert.addInput({
+        type: 'radio',
+        name:'volta',
+        label: this.linha[num-1].descricaoPonto,
+         value: this.linha[num-1].codPonto,
+        checked: false
+      });
+
+    
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        if(alert.data.inputs[0].checked == false){
+          this.postDados(this.linha[num-1].codPonto,codigo);
+        }else if(alert.data.inputs[0].checked == true){
+          this.postDados(this.linha[num].codPonto,codigo);
+        }
+          
+    //    this.testRadioOpen = false;
+  //      this.testRadioResult = data;
+        //this.navCtrl.setRoot(HelloIonicPage);
+        
+        // if(){
+          
+        // }
+  
+      }
+      
+    }
+  );
+    alert.present();
+
+      }
+
+
+
+  private newMethod() {
+    postDados(this.destinationPosition);
+    {
+    }
+  }
 }
