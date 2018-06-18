@@ -7,11 +7,14 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="fundo">
+
 <ion-list>
-<ion-item>
-  {{numero}}
+
+<ion-item *ngFor="let info of info">
+{{info.numLinha}} 
 </ion-item>
+
 </ion-list>
   
                   

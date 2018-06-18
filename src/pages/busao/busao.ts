@@ -12,7 +12,6 @@ export class BusaoPage {
    info: any[];
   numero:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public service: ServiceProvider) {
-    this.getInfo();
     this.getDados();
   }   
 
@@ -22,12 +21,14 @@ export class BusaoPage {
 
   getInfo(){
     this.service.getInfo().subscribe(
-      data=> this.info = data,
+      data=> console.log(this.info=data),
       err=>console.log(err)
     )
   }
   getDados(){
     this.numero = this.navParams.get('numero');
     console.log(this.navParams.get('numero'));
+
   }
+
 }

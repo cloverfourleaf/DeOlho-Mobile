@@ -34,7 +34,7 @@ export class ContactPage {
   
   openBus(numLinha){
      this.navCtrl.push(BusaoPage,{
-      numero: numLinha
+      numero: numLinha,
      });
      //return this.numLinha;
      //alert(numLinha);
